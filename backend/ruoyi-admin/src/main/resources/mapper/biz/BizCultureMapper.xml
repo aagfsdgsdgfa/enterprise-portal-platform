@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.biz.mapper.BizCultureMapper">
+    
+    <resultMap type="BizCulture" id="BizCultureResult">
+        <result property="cultureId"    column="culture_id"    />
+        <result property="title"    column="title"    />
+        <result property="subTitle"    column="sub_title"    />
+        <result property="icon"    column="icon"    />
+        <result property="description"    column="description"    />
+        <result property="sortOrder"    column="sort_order"    />
+        <result property="type"    column="type"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectBizCultureVo">
+        select culture_id, title, sub_title, icon, description, sort_order, type, create_by, create_time, update_by, update_time from biz_culture
+    </sql>
+
+    <select id="selectBizCultureList" parameterType="BizCulture" resultMap="BizCultureResult">
+        <include refid="selectBizCultureVo"/>
+        <where>  
+            <if test="title != null  and title != ''"> and title = #{title}</if>
+            <if test="subTitle != null  and subTitle != ''"> and sub_title = #{subTitle}</if>
+            <if test="icon != null  and icon != ''"> and icon = #{icon}</if>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+            <if test="sortOrder != null "> and sort_order = #{sortOrder}</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+        </where>
+    </select>
+    
+    <select id="selectBizCultureByCultureId" parameterType="Long" resultMap="BizCultureResult">
+        <include refid="selectBizCultureVo"/>
+        where culture_id = #{cultureId}
+    </select>
+
+    <insert id="insertBizCulture" parameterType="BizCulture" useGeneratedKeys="true" keyProperty="cultureId">
+        insert into biz_culture
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="title != null and title != ''">title,</if>
+            <if test="subTitle != null">sub_title,</if>
+            <if test="icon != null">icon,</if>
+            <if test="description != null">description,</if>
+            <if test="sortOrder != null">sort_order,</if>
+            <if test="type != null">type,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="title != null and title != ''">#{title},</if>
+            <if test="subTitle != null">#{subTitle},</if>
+            <if test="icon != null">#{icon},</if>
+            <if test="description != null">#{description},</if>
+            <if test="sortOrder != null">#{sortOrder},</if>
+            <if test="type != null">#{type},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBizCulture" parameterType="BizCulture">
+        update biz_culture
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="subTitle != null">sub_title = #{subTitle},</if>
+            <if test="icon != null">icon = #{icon},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="sortOrder != null">sort_order = #{sortOrder},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where culture_id = #{cultureId}
+    </update>
+
+    <delete id="deleteBizCultureByCultureId" parameterType="Long">
+        delete from biz_culture where culture_id = #{cultureId}
+    </delete>
+
+    <delete id="deleteBizCultureByCultureIds" parameterType="String">
+        delete from biz_culture where culture_id in 
+        <foreach item="cultureId" collection="array" open="(" separator="," close=")">
+            #{cultureId}
+        </foreach>
+    </delete>
+</mapper>

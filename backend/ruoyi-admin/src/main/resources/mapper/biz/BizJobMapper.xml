@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.biz.mapper.BizJobMapper">
+    
+    <resultMap type="BizJob" id="BizJobResult">
+        <result property="jobId"    column="job_id"    />
+        <result property="jobTitle"    column="job_title"    />
+        <result property="department"    column="department"    />
+        <result property="jobType"    column="job_type"    />
+        <result property="workLocation"    column="work_location"    />
+        <result property="salaryRange"    column="salary_range"    />
+        <result property="experience"    column="experience"    />
+        <result property="education"    column="education"    />
+        <result property="jobDesc"    column="job_desc"    />
+        <result property="jobRequire"    column="job_require"    />
+        <result property="isUrgent"    column="is_urgent"    />
+        <result property="status"    column="status"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectBizJobVo">
+        select job_id, job_title, department, job_type, work_location, salary_range, experience, education, job_desc, job_require, is_urgent, status, create_by, create_time, update_by, update_time, remark from biz_job
+    </sql>
+
+    <select id="selectBizJobList" parameterType="BizJob" resultMap="BizJobResult">
+        <include refid="selectBizJobVo"/>
+        <where>  
+            <if test="jobTitle != null  and jobTitle != ''"> and job_title = #{jobTitle}</if>
+            <if test="department != null  and department != ''"> and department = #{department}</if>
+            <if test="jobType != null  and jobType != ''"> and job_type = #{jobType}</if>
+            <if test="workLocation != null  and workLocation != ''"> and work_location = #{workLocation}</if>
+            <if test="salaryRange != null  and salaryRange != ''"> and salary_range = #{salaryRange}</if>
+            <if test="experience != null  and experience != ''"> and experience = #{experience}</if>
+            <if test="education != null  and education != ''"> and education = #{education}</if>
+            <if test="jobDesc != null  and jobDesc != ''"> and job_desc = #{jobDesc}</if>
+            <if test="jobRequire != null  and jobRequire != ''"> and job_require = #{jobRequire}</if>
+            <if test="isUrgent != null  and isUrgent != ''"> and is_urgent = #{isUrgent}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectBizJobByJobId" parameterType="Long" resultMap="BizJobResult">
+        <include refid="selectBizJobVo"/>
+        where job_id = #{jobId}
+    </select>
+
+    <insert id="insertBizJob" parameterType="BizJob" useGeneratedKeys="true" keyProperty="jobId">
+        insert into biz_job
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="jobTitle != null and jobTitle != ''">job_title,</if>
+            <if test="department != null">department,</if>
+            <if test="jobType != null">job_type,</if>
+            <if test="workLocation != null">work_location,</if>
+            <if test="salaryRange != null">salary_range,</if>
+            <if test="experience != null">experience,</if>
+            <if test="education != null">education,</if>
+            <if test="jobDesc != null">job_desc,</if>
+            <if test="jobRequire != null">job_require,</if>
+            <if test="isUrgent != null">is_urgent,</if>
+            <if test="status != null">status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="jobTitle != null and jobTitle != ''">#{jobTitle},</if>
+            <if test="department != null">#{department},</if>
+            <if test="jobType != null">#{jobType},</if>
+            <if test="workLocation != null">#{workLocation},</if>
+            <if test="salaryRange != null">#{salaryRange},</if>
+            <if test="experience != null">#{experience},</if>
+            <if test="education != null">#{education},</if>
+            <if test="jobDesc != null">#{jobDesc},</if>
+            <if test="jobRequire != null">#{jobRequire},</if>
+            <if test="isUrgent != null">#{isUrgent},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBizJob" parameterType="BizJob">
+        update biz_job
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="jobTitle != null and jobTitle != ''">job_title = #{jobTitle},</if>
+            <if test="department != null">department = #{department},</if>
+            <if test="jobType != null">job_type = #{jobType},</if>
+            <if test="workLocation != null">work_location = #{workLocation},</if>
+            <if test="salaryRange != null">salary_range = #{salaryRange},</if>
+            <if test="experience != null">experience = #{experience},</if>
+            <if test="education != null">education = #{education},</if>
+            <if test="jobDesc != null">job_desc = #{jobDesc},</if>
+            <if test="jobRequire != null">job_require = #{jobRequire},</if>
+            <if test="isUrgent != null">is_urgent = #{isUrgent},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where job_id = #{jobId}
+    </update>
+
+    <delete id="deleteBizJobByJobId" parameterType="Long">
+        delete from biz_job where job_id = #{jobId}
+    </delete>
+
+    <delete id="deleteBizJobByJobIds" parameterType="String">
+        delete from biz_job where job_id in 
+        <foreach item="jobId" collection="array" open="(" separator="," close=")">
+            #{jobId}
+        </foreach>
+    </delete>
+</mapper>

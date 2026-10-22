@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.biz.mapper.BizProductMapper">
+    
+    <resultMap type="BizProduct" id="BizProductResult">
+        <result property="productId"    column="product_id"    />
+        <result property="productName"    column="product_name"    />
+        <result property="categoryId"    column="category_id"    />
+        <result property="subTitle"    column="sub_title"    />
+        <result property="mainImg"    column="main_img"    />
+        <result property="iconImg"    column="icon_img"    />
+        <result property="techArchImg"    column="tech_arch_img"    />
+        <result property="demoVideoUrl"    column="demo_video_url"    />
+        <result property="summary"    column="summary"    />
+        <result property="painPoints"    column="pain_points"    />
+        <result property="solutions"    column="solutions"    />
+        <result property="techSpecs"    column="tech_specs"    />
+        <result property="relatedIds"    column="related_ids"    />
+        <result property="seoTitle"    column="seo_title"    />
+        <result property="seoKeywords"    column="seo_keywords"    />
+        <result property="seoDescription"    column="seo_description"    />
+        <result property="sortOrder"    column="sort_order"    />
+        <result property="status"    column="status"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectBizProductVo">
+        select product_id, product_name, category_id, sub_title, main_img, icon_img, tech_arch_img, demo_video_url, summary, pain_points, solutions, tech_specs, related_ids, seo_title, seo_keywords, seo_description, sort_order, status, create_by, create_time, update_by, update_time, remark from biz_product
+    </sql>
+
+    <select id="selectBizProductList" parameterType="BizProduct" resultMap="BizProductResult">
+        <include refid="selectBizProductVo"/>
+        <where>  
+            <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
+            <if test="categoryId != null "> and category_id = #{categoryId}</if>
+            <if test="subTitle != null  and subTitle != ''"> and sub_title = #{subTitle}</if>
+            <if test="mainImg != null  and mainImg != ''"> and main_img = #{mainImg}</if>
+            <if test="iconImg != null  and iconImg != ''"> and icon_img = #{iconImg}</if>
+            <if test="techArchImg != null  and techArchImg != ''"> and tech_arch_img = #{techArchImg}</if>
+            <if test="demoVideoUrl != null  and demoVideoUrl != ''"> and demo_video_url = #{demoVideoUrl}</if>
+            <if test="summary != null  and summary != ''"> and summary = #{summary}</if>
+            <if test="painPoints != null  and painPoints != ''"> and pain_points = #{painPoints}</if>
+            <if test="solutions != null  and solutions != ''"> and solutions = #{solutions}</if>
+            <if test="techSpecs != null  and techSpecs != ''"> and tech_specs = #{techSpecs}</if>
+            <if test="relatedIds != null  and relatedIds != ''"> and related_ids = #{relatedIds}</if>
+            <if test="seoTitle != null  and seoTitle != ''"> and seo_title = #{seoTitle}</if>
+            <if test="seoKeywords != null  and seoKeywords != ''"> and seo_keywords = #{seoKeywords}</if>
+            <if test="seoDescription != null  and seoDescription != ''"> and seo_description = #{seoDescription}</if>
+            <if test="sortOrder != null "> and sort_order = #{sortOrder}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectBizProductByProductId" parameterType="Long" resultMap="BizProductResult">
+        <include refid="selectBizProductVo"/>
+        where product_id = #{productId}
+    </select>
+
+    <insert id="insertBizProduct" parameterType="BizProduct" useGeneratedKeys="true" keyProperty="productId">
+        insert into biz_product
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="productName != null and productName != ''">product_name,</if>
+            <if test="categoryId != null">category_id,</if>
+            <if test="subTitle != null">sub_title,</if>
+            <if test="mainImg != null">main_img,</if>
+            <if test="iconImg != null">icon_img,</if>
+            <if test="techArchImg != null">tech_arch_img,</if>
+            <if test="demoVideoUrl != null">demo_video_url,</if>
+            <if test="summary != null">summary,</if>
+            <if test="painPoints != null">pain_points,</if>
+            <if test="solutions != null">solutions,</if>
+            <if test="techSpecs != null">tech_specs,</if>
+            <if test="relatedIds != null">related_ids,</if>
+            <if test="seoTitle != null">seo_title,</if>
+            <if test="seoKeywords != null">seo_keywords,</if>
+            <if test="seoDescription != null">seo_description,</if>
+            <if test="sortOrder != null">sort_order,</if>
+            <if test="status != null">status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="productName != null and productName != ''">#{productName},</if>
+            <if test="categoryId != null">#{categoryId},</if>
+            <if test="subTitle != null">#{subTitle},</if>
+            <if test="mainImg != null">#{mainImg},</if>
+            <if test="iconImg != null">#{iconImg},</if>
+            <if test="techArchImg != null">#{techArchImg},</if>
+            <if test="demoVideoUrl != null">#{demoVideoUrl},</if>
+            <if test="summary != null">#{summary},</if>
+            <if test="painPoints != null">#{painPoints},</if>
+            <if test="solutions != null">#{solutions},</if>
+            <if test="techSpecs != null">#{techSpecs},</if>
+            <if test="relatedIds != null">#{relatedIds},</if>
+            <if test="seoTitle != null">#{seoTitle},</if>
+            <if test="seoKeywords != null">#{seoKeywords},</if>
+            <if test="seoDescription != null">#{seoDescription},</if>
+            <if test="sortOrder != null">#{sortOrder},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBizProduct" parameterType="BizProduct">
+        update biz_product
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="productName != null and productName != ''">product_name = #{productName},</if>
+            <if test="categoryId != null">category_id = #{categoryId},</if>
+            <if test="subTitle != null">sub_title = #{subTitle},</if>
+            <if test="mainImg != null">main_img = #{mainImg},</if>
+            <if test="iconImg != null">icon_img = #{iconImg},</if>
+            <if test="techArchImg != null">tech_arch_img = #{techArchImg},</if>
+            <if test="demoVideoUrl != null">demo_video_url = #{demoVideoUrl},</if>
+            <if test="summary != null">summary = #{summary},</if>
+            <if test="painPoints != null">pain_points = #{painPoints},</if>
+            <if test="solutions != null">solutions = #{solutions},</if>
+            <if test="techSpecs != null">tech_specs = #{techSpecs},</if>
+            <if test="relatedIds != null">related_ids = #{relatedIds},</if>
+            <if test="seoTitle != null">seo_title = #{seoTitle},</if>
+            <if test="seoKeywords != null">seo_keywords = #{seoKeywords},</if>
+            <if test="seoDescription != null">seo_description = #{seoDescription},</if>
+            <if test="sortOrder != null">sort_order = #{sortOrder},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where product_id = #{productId}
+    </update>
+
+    <delete id="deleteBizProductByProductId" parameterType="Long">
+        delete from biz_product where product_id = #{productId}
+    </delete>
+
+    <delete id="deleteBizProductByProductIds" parameterType="String">
+        delete from biz_product where product_id in 
+        <foreach item="productId" collection="array" open="(" separator="," close=")">
+            #{productId}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.biz.mapper.BizHomeConfigMapper">
+    
+    <resultMap type="BizHomeConfig" id="BizHomeConfigResult">
+        <result property="configId"    column="config_id"    />
+        <result property="configGroup"    column="config_group"    />
+        <result property="configKey"    column="config_key"    />
+        <result property="title"    column="title"    />
+        <result property="subTitle"    column="sub_title"    />
+        <result property="icon"    column="icon"    />
+        <result property="imageUrl"    column="image_url"    />
+        <result property="linkUrl"    column="link_url"    />
+        <result property="sortOrder"    column="sort_order"    />
+        <result property="status"    column="status"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectBizHomeConfigVo">
+        select config_id, config_group, config_key, title, sub_title, icon, image_url, link_url, sort_order, status, create_by, create_time, update_by, update_time, remark from biz_home_config
+    </sql>
+
+    <select id="selectBizHomeConfigList" parameterType="BizHomeConfig" resultMap="BizHomeConfigResult">
+        <include refid="selectBizHomeConfigVo"/>
+        <where>  
+            <if test="configGroup != null  and configGroup != ''"> and config_group = #{configGroup}</if>
+            <if test="configKey != null  and configKey != ''"> and config_key = #{configKey}</if>
+            <if test="title != null  and title != ''"> and title = #{title}</if>
+            <if test="subTitle != null  and subTitle != ''"> and sub_title = #{subTitle}</if>
+            <if test="icon != null  and icon != ''"> and icon = #{icon}</if>
+            <if test="imageUrl != null  and imageUrl != ''"> and image_url = #{imageUrl}</if>
+            <if test="linkUrl != null  and linkUrl != ''"> and link_url = #{linkUrl}</if>
+            <if test="sortOrder != null "> and sort_order = #{sortOrder}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectBizHomeConfigByConfigId" parameterType="Long" resultMap="BizHomeConfigResult">
+        <include refid="selectBizHomeConfigVo"/>
+        where config_id = #{configId}
+    </select>
+
+    <insert id="insertBizHomeConfig" parameterType="BizHomeConfig" useGeneratedKeys="true" keyProperty="configId">
+        insert into biz_home_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="configGroup != null and configGroup != ''">config_group,</if>
+            <if test="configKey != null">config_key,</if>
+            <if test="title != null">title,</if>
+            <if test="subTitle != null">sub_title,</if>
+            <if test="icon != null">icon,</if>
+            <if test="imageUrl != null">image_url,</if>
+            <if test="linkUrl != null">link_url,</if>
+            <if test="sortOrder != null">sort_order,</if>
+            <if test="status != null">status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="configGroup != null and configGroup != ''">#{configGroup},</if>
+            <if test="configKey != null">#{configKey},</if>
+            <if test="title != null">#{title},</if>
+            <if test="subTitle != null">#{subTitle},</if>
+            <if test="icon != null">#{icon},</if>
+            <if test="imageUrl != null">#{imageUrl},</if>
+            <if test="linkUrl != null">#{linkUrl},</if>
+            <if test="sortOrder != null">#{sortOrder},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBizHomeConfig" parameterType="BizHomeConfig">
+        update biz_home_config
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="configGroup != null and configGroup != ''">config_group = #{configGroup},</if>
+            <if test="configKey != null">config_key = #{configKey},</if>
+            <if test="title != null">title = #{title},</if>
+            <if test="subTitle != null">sub_title = #{subTitle},</if>
+            <if test="icon != null">icon = #{icon},</if>
+            <if test="imageUrl != null">image_url = #{imageUrl},</if>
+            <if test="linkUrl != null">link_url = #{linkUrl},</if>
+            <if test="sortOrder != null">sort_order = #{sortOrder},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where config_id = #{configId}
+    </update>
+
+    <delete id="deleteBizHomeConfigByConfigId" parameterType="Long">
+        delete from biz_home_config where config_id = #{configId}
+    </delete>
+
+    <delete id="deleteBizHomeConfigByConfigIds" parameterType="String">
+        delete from biz_home_config where config_id in 
+        <foreach item="configId" collection="array" open="(" separator="," close=")">
+            #{configId}
+        </foreach>
+    </delete>
+</mapper>

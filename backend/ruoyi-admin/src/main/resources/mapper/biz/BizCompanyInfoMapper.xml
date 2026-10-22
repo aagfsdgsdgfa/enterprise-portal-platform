@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.biz.mapper.BizCompanyInfoMapper">
+    
+    <resultMap type="BizCompanyInfo" id="BizCompanyInfoResult">
+        <result property="infoId"    column="info_id"    />
+        <result property="companyName"    column="company_name"    />
+        <result property="address"    column="address"    />
+        <result property="phoneHotline"    column="phone_hotline"    />
+        <result property="phoneSales"    column="phone_sales"    />
+        <result property="email"    column="email"    />
+        <result property="workTime"    column="work_time"    />
+        <result property="logoDark"    column="logo_dark"    />
+        <result property="logoLight"    column="logo_light"    />
+        <result property="qrCode"    column="qr_code"    />
+        <result property="icpBeian"    column="icp_beian"    />
+        <result property="copyright"    column="copyright"    />
+        <result property="latitude"    column="latitude"    />
+        <result property="longitude"    column="longitude"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectBizCompanyInfoVo">
+        select info_id, company_name, address, phone_hotline, phone_sales, email, work_time, logo_dark, logo_light, qr_code, icp_beian, copyright, latitude, longitude, update_by, update_time, remark from biz_company_info
+    </sql>
+
+    <select id="selectBizCompanyInfoList" parameterType="BizCompanyInfo" resultMap="BizCompanyInfoResult">
+        <include refid="selectBizCompanyInfoVo"/>
+        <where>  
+            <if test="companyName != null  and companyName != ''"> and company_name like concat('%', #{companyName}, '%')</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+            <if test="phoneHotline != null  and phoneHotline != ''"> and phone_hotline = #{phoneHotline}</if>
+            <if test="phoneSales != null  and phoneSales != ''"> and phone_sales = #{phoneSales}</if>
+            <if test="email != null  and email != ''"> and email = #{email}</if>
+            <if test="workTime != null  and workTime != ''"> and work_time = #{workTime}</if>
+            <if test="logoDark != null  and logoDark != ''"> and logo_dark = #{logoDark}</if>
+            <if test="logoLight != null  and logoLight != ''"> and logo_light = #{logoLight}</if>
+            <if test="qrCode != null  and qrCode != ''"> and qr_code = #{qrCode}</if>
+            <if test="icpBeian != null  and icpBeian != ''"> and icp_beian = #{icpBeian}</if>
+            <if test="copyright != null  and copyright != ''"> and copyright = #{copyright}</if>
+            <if test="latitude != null  and latitude != ''"> and latitude = #{latitude}</if>
+            <if test="longitude != null  and longitude != ''"> and longitude = #{longitude}</if>
+        </where>
+    </select>
+    
+    <select id="selectBizCompanyInfoByInfoId" parameterType="Long" resultMap="BizCompanyInfoResult">
+        <include refid="selectBizCompanyInfoVo"/>
+        where info_id = #{infoId}
+    </select>
+
+    <insert id="insertBizCompanyInfo" parameterType="BizCompanyInfo" useGeneratedKeys="true" keyProperty="infoId">
+        insert into biz_company_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="companyName != null">company_name,</if>
+            <if test="address != null">address,</if>
+            <if test="phoneHotline != null">phone_hotline,</if>
+            <if test="phoneSales != null">phone_sales,</if>
+            <if test="email != null">email,</if>
+            <if test="workTime != null">work_time,</if>
+            <if test="logoDark != null">logo_dark,</if>
+            <if test="logoLight != null">logo_light,</if>
+            <if test="qrCode != null">qr_code,</if>
+            <if test="icpBeian != null">icp_beian,</if>
+            <if test="copyright != null">copyright,</if>
+            <if test="latitude != null">latitude,</if>
+            <if test="longitude != null">longitude,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="companyName != null">#{companyName},</if>
+            <if test="address != null">#{address},</if>
+            <if test="phoneHotline != null">#{phoneHotline},</if>
+            <if test="phoneSales != null">#{phoneSales},</if>
+            <if test="email != null">#{email},</if>
+            <if test="workTime != null">#{workTime},</if>
+            <if test="logoDark != null">#{logoDark},</if>
+            <if test="logoLight != null">#{logoLight},</if>
+            <if test="qrCode != null">#{qrCode},</if>
+            <if test="icpBeian != null">#{icpBeian},</if>
+            <if test="copyright != null">#{copyright},</if>
+            <if test="latitude != null">#{latitude},</if>
+            <if test="longitude != null">#{longitude},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBizCompanyInfo" parameterType="BizCompanyInfo">
+        update biz_company_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="companyName != null">company_name = #{companyName},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="phoneHotline != null">phone_hotline = #{phoneHotline},</if>
+            <if test="phoneSales != null">phone_sales = #{phoneSales},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="workTime != null">work_time = #{workTime},</if>
+            <if test="logoDark != null">logo_dark = #{logoDark},</if>
+            <if test="logoLight != null">logo_light = #{logoLight},</if>
+            <if test="qrCode != null">qr_code = #{qrCode},</if>
+            <if test="icpBeian != null">icp_beian = #{icpBeian},</if>
+            <if test="copyright != null">copyright = #{copyright},</if>
+            <if test="latitude != null">latitude = #{latitude},</if>
+            <if test="longitude != null">longitude = #{longitude},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where info_id = #{infoId}
+    </update>
+
+    <delete id="deleteBizCompanyInfoByInfoId" parameterType="Long">
+        delete from biz_company_info where info_id = #{infoId}
+    </delete>
+
+    <delete id="deleteBizCompanyInfoByInfoIds" parameterType="String">
+        delete from biz_company_info where info_id in 
+        <foreach item="infoId" collection="array" open="(" separator="," close=")">
+            #{infoId}
+        </foreach>
+    </delete>
+</mapper>
